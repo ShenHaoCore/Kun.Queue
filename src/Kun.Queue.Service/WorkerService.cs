@@ -96,13 +96,14 @@ public class WorkerService : IHostedService
     public async Task RetryProcessMessageAsync(string message)
     {
         var policy = Policy.Handle<Exception>().WaitAndRetryAsync(3, retryAttempt => TimeSpan.FromSeconds(5)); // 创建重试策略：最多重试3次，间隔为5秒
-        await policy.ExecuteAsync(async () => await ProcessMessageAsync(message)); // 包裹方法执行
+        await policy.ExecuteAsync(async () => await ProcessMessageAsync(message)); // 方法执行
     }
 
     /// <summary>
     /// 
     /// </summary>
     /// <param name="message"></param>
+    /// <returns></returns>
     private async Task ProcessMessageAsync(string message)
     {
         await Task.CompletedTask;
