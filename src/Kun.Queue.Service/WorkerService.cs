@@ -105,6 +105,7 @@ public class WorkerService : IHostedService
     /// <param name="message"></param>
     private async Task ProcessMessageAsync(string message)
     {
+        await Task.CompletedTask;
     }
 
     /// <summary>
