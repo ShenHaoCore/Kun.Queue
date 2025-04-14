@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35931.197 d17.13
+VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{6B401A04-A506-48F4-AD3A-FBFC67FFBACF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kun.Queue.Service", "src\Kun.Queue.Service\Kun.Queue.Service.csproj", "{0DBB4453-4741-4586-B8C1-44763B356E45}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kun.Queue.Api", "src\Kun.Queue.Api\Kun.Queue.Api.csproj", "{92F44B71-91A6-4A18-ADC3-C37AC4F0B542}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,12 +21,17 @@ Global
 		{0DBB4453-4741-4586-B8C1-44763B356E45}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0DBB4453-4741-4586-B8C1-44763B356E45}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0DBB4453-4741-4586-B8C1-44763B356E45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92F44B71-91A6-4A18-ADC3-C37AC4F0B542}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92F44B71-91A6-4A18-ADC3-C37AC4F0B542}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92F44B71-91A6-4A18-ADC3-C37AC4F0B542}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92F44B71-91A6-4A18-ADC3-C37AC4F0B542}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{0DBB4453-4741-4586-B8C1-44763B356E45} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{92F44B71-91A6-4A18-ADC3-C37AC4F0B542} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {01DBA914-C2A1-4490-98E7-69F72E10E327}

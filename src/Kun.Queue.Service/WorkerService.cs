@@ -106,7 +106,22 @@ public class WorkerService : IHostedService
     /// <returns></returns>
     private async Task ProcessMessageAsync(string message)
     {
-        await Task.CompletedTask;
+        using (HttpClient client = new HttpClient())
+        {
+            var _apiConfig = _configuration.GetSection("BusinessApi").Get<BusinessApiOptions>();
+            ArgumentNullException.ThrowIfNull(_apiConfig, nameof(_apiConfig));
+            client.DefaultRequestHeaders.Add("X-USER-LOGINNAME", "0");
+            client.Timeout = TimeSpan.FromMilliseconds(_apiConfig.Timeout);
+            client.BaseAddress = new Uri(_apiConfig.BaseAddress);
+            var request = new { Data = message };
+            string jsonContent = JsonSerializer.Serialize(request);
+            _logger.LogInformation($"请求内容: {jsonContent}");
+            StringContent content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await client.PostAsync(_apiConfig.RequestUri, content);// 发送 POST 请求
+            response.EnsureSuccessStatusCode(); // 检查 HTTP 状态码
+            string responseContent = await response.Content.ReadAsStringAsync(); // 读取响应内容（假设返回 JSON）
+            _logger.LogInformation($"响应内容: {responseContent}");
+        }
     }
 
     /// <summary>
@@ -120,7 +135,7 @@ public class WorkerService : IHostedService
         try
         {
             // 创建邮件内容
-            var emailConfig = _configuration.GetSection("EmailNotifier").Get<EmailOptions>();
+            var emailConfig = _configuration.GetSection("Email").Get<EmailOptions>();
             ArgumentNullException.ThrowIfNull(emailConfig, nameof(emailConfig));
             _logger.LogInformation($"邮箱配置：{JsonSerializer.Serialize(emailConfig)}");
             var message = new MimeMessage();
