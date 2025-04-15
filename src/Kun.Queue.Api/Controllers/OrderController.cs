@@ -9,6 +9,7 @@ namespace Kun.Queue.Controllers;
 /// </summary>
 [Route("api/[controller]/[action]")]
 [ApiController]
+[Authorize]
 public class OrderController : ControllerBase
 {
     /// <summary>
@@ -17,7 +18,6 @@ public class OrderController : ControllerBase
     /// <param name="order">订单</param>
     /// <returns></returns>
     [HttpPost]
-    [Authorize]
     [Tags("幂等接口")]
     [EndpointSummary("创建订单API")]
     [EndpointDescription("创建订单")]
@@ -33,7 +33,6 @@ public class OrderController : ControllerBase
     /// <param name="id">ID</param>
     /// <returns></returns>
     [HttpDelete("{id}")]
-    [Authorize]
     [Tags("幂等接口")]
     [EndpointSummary("删除订单API")]
     [EndpointDescription("删除订单")]
@@ -50,7 +49,6 @@ public class OrderController : ControllerBase
     /// <param name="order">订单</param>
     /// <returns></returns>
     [HttpPut("{id}")]
-    [Authorize]
     [Tags("幂等接口")]
     [EndpointSummary("修改订单API")]
     [EndpointDescription("修改订单")]
@@ -58,7 +56,7 @@ public class OrderController : ControllerBase
     {
         ArgumentNullException.ThrowIfNull(id);
         ArgumentNullException.ThrowIfNull(order);
-        return Ok($"SUCCESS-UPDATE-{id}");
+        return Ok($"SUCCESS-PUT-{id}");
     }
 
     /// <summary>
@@ -67,13 +65,12 @@ public class OrderController : ControllerBase
     /// <param name="id">ID</param>
     /// <returns></returns>
     [HttpGet("{id}")]
-    [Authorize]
     [Tags("非幂等接口")]
     [EndpointSummary("获取订单API")]
     [EndpointDescription("获取订单")]
     public IActionResult Get(string id)
     {
         ArgumentNullException.ThrowIfNull(id);
-        return Ok($"SUCCESS-{id}");
+        return Ok($"SUCCESS-GET-{id}");
     }
 }
