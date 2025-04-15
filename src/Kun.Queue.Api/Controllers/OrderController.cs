@@ -1,4 +1,5 @@
 ﻿using Kun.Queue.Models;
+using MassTransit;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,6 +13,17 @@ namespace Kun.Queue.Controllers;
 [Authorize]
 public class OrderController : ControllerBase
 {
+    private readonly IPublishEndpoint _publishEndpoint;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="publishEndpoint"></param>
+    public OrderController(IPublishEndpoint publishEndpoint)
+    {
+        _publishEndpoint = publishEndpoint;
+    }
+
     /// <summary>
     /// 创建
     /// </summary>
@@ -21,9 +33,10 @@ public class OrderController : ControllerBase
     [Tags("幂等接口")]
     [EndpointSummary("创建订单API")]
     [EndpointDescription("创建订单")]
-    public IActionResult Create([FromBody] CreateOrderModel order)
+    public async Task<IActionResult> CreateAsync([FromBody] CreateOrderModel order)
     {
         ArgumentNullException.ThrowIfNull(order);
+        await Task.CompletedTask;
         return Ok("SUCCESS-CREATE");
     }
 
@@ -36,9 +49,10 @@ public class OrderController : ControllerBase
     [Tags("幂等接口")]
     [EndpointSummary("删除订单API")]
     [EndpointDescription("删除订单")]
-    public IActionResult Delete(string id)
+    public async Task<IActionResult> DeleteAsync(string id)
     {
         ArgumentNullException.ThrowIfNull(id);
+        await Task.CompletedTask;
         return Ok($"SUCCESS-DELETE-{id}");
     }
 
@@ -52,10 +66,11 @@ public class OrderController : ControllerBase
     [Tags("幂等接口")]
     [EndpointSummary("修改订单API")]
     [EndpointDescription("修改订单")]
-    public IActionResult Put(string id, UpdateOrderModel order)
+    public async Task<IActionResult> PutAsync(string id, UpdateOrderModel order)
     {
         ArgumentNullException.ThrowIfNull(id);
         ArgumentNullException.ThrowIfNull(order);
+        await Task.CompletedTask;
         return Ok($"SUCCESS-PUT-{id}");
     }
 
@@ -68,9 +83,10 @@ public class OrderController : ControllerBase
     [Tags("非幂等接口")]
     [EndpointSummary("获取订单API")]
     [EndpointDescription("获取订单")]
-    public IActionResult Get(string id)
+    public async Task<IActionResult> GetAsync(string id)
     {
         ArgumentNullException.ThrowIfNull(id);
+        await Task.CompletedTask;
         return Ok($"SUCCESS-GET-{id}");
     }
 }

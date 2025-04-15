@@ -1,9 +1,9 @@
-﻿namespace Kun.Queue.Models;
+﻿namespace Kun.Queue.Options;
 
 /// <summary>
 /// 
 /// </summary>
-public class EmailOptions
+public class EmailOption
 {
     /// <summary>
     /// 

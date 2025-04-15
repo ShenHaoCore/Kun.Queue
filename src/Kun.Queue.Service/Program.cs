@@ -1,4 +1,4 @@
-﻿using Kun.Queue.Models;
+﻿using Kun.Queue.Options;
 using Kun.Queue.Service;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -33,7 +33,7 @@ await host.RunAsync();
 
 async Task<(IConnection, IChannel)> GetRabbit(IConfiguration configuration)
 {
-    var mqConfig = configuration.GetSection("RabbitMQ").Get<RabbitMQOptions>();
+    var mqConfig = configuration.GetSection("RabbitMQ").Get<RabbitMQOption>();
     ArgumentNullException.ThrowIfNull(mqConfig, nameof(mqConfig));
     ConnectionFactory factory = new ConnectionFactory { HostName = mqConfig.HostName, Port = 5672, UserName = mqConfig.UserName, Password = mqConfig.Password };
     IConnection connection = await factory.CreateConnectionAsync(); // 建立连接和通道

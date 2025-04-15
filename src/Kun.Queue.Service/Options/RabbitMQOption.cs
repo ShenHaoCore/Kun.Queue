@@ -1,9 +1,9 @@
-﻿namespace Kun.Queue.Models;
+﻿namespace Kun.Queue.Options;
 
 /// <summary>
 /// RabbitMQ配置
 /// </summary>
-public class RabbitMQOptions
+public class RabbitMQOption
 {
     /// <summary>
     /// 

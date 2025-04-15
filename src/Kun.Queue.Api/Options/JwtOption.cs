@@ -1,9 +1,9 @@
-﻿namespace Kun.Queue.Models;
+﻿namespace Kun.Queue.Options;
 
 /// <summary>
 /// 
 /// </summary>
-public class JwtOptions
+public class JwtOption
 {
     /// <summary>
     /// 

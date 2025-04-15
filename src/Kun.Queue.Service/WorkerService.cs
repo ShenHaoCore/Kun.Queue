@@ -1,4 +1,4 @@
-﻿using Kun.Queue.Models;
+﻿using Kun.Queue.Options;
 using MailKit.Net.Smtp;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -43,7 +43,7 @@ public class WorkerService : IHostedService
     public async Task StartAsync(CancellationToken cancellationToken)
     {
         _logger.LogInformation($"服务启动中...");
-        var mqConfig = _configuration.GetSection("RabbitMQ").Get<RabbitMQOptions>();
+        var mqConfig = _configuration.GetSection("RabbitMQ").Get<RabbitMQOption>();
         ArgumentNullException.ThrowIfNull(mqConfig, nameof(mqConfig));
         await _channel.QueueDeclareAsync(queue: mqConfig.QueueName, durable: true, exclusive: false, autoDelete: false, arguments: null);
         AsyncEventingBasicConsumer consumer = new AsyncEventingBasicConsumer(_channel);
@@ -108,7 +108,7 @@ public class WorkerService : IHostedService
     {
         using (HttpClient client = new HttpClient())
         {
-            var _apiConfig = _configuration.GetSection("BusinessApi").Get<BusinessApiOptions>();
+            var _apiConfig = _configuration.GetSection("BusinessApi").Get<BusinessApiOption>();
             ArgumentNullException.ThrowIfNull(_apiConfig, nameof(_apiConfig));
             client.DefaultRequestHeaders.Add("X-USER-LOGINNAME", "0");
             client.Timeout = TimeSpan.FromMilliseconds(_apiConfig.Timeout);
@@ -135,7 +135,7 @@ public class WorkerService : IHostedService
         try
         {
             // 创建邮件内容
-            var emailConfig = _configuration.GetSection("Email").Get<EmailOptions>();
+            var emailConfig = _configuration.GetSection("Email").Get<EmailOption>();
             ArgumentNullException.ThrowIfNull(emailConfig, nameof(emailConfig));
             _logger.LogInformation($"邮箱配置：{JsonSerializer.Serialize(emailConfig)}");
             var message = new MimeMessage();

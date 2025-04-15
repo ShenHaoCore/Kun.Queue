@@ -1,4 +1,4 @@
-﻿using Kun.Queue.Models;
+﻿using Kun.Queue.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -17,7 +17,7 @@ public class JwtHelper
     /// </summary>
     /// <param name="userId"></param>
     /// <returns></returns>
-    public static (string accessToken, string refreshToken) GenerateToken(string userId, JwtOptions options)
+    public static (string accessToken, string refreshToken) GenerateToken(string userId, JwtOption options)
     {
         List<Claim> claims = [new Claim(JwtRegisteredClaimNames.Sub, userId), new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())];
         SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.Secret));

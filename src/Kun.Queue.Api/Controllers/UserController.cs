@@ -1,5 +1,6 @@
 ﻿using Kun.Queue.Commons;
 using Kun.Queue.Models;
+using Kun.Queue.Options;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Kun.Queue.Controllers;
@@ -34,7 +35,7 @@ public class UserController : ControllerBase
         ArgumentNullException.ThrowIfNull(request);
         (bool isValidate, string userId) = ValidateUser(request.Username, request.Password);
         if (!isValidate) { return Unauthorized("Invalid credentials"); }
-        var _jwtConfig = _configuration.GetSection("JWT").Get<JwtOptions>();
+        var _jwtConfig = _configuration.GetSection("JWT").Get<JwtOption>();
         ArgumentNullException.ThrowIfNull(_jwtConfig, nameof(_jwtConfig));
         (string accessToken, string refreshToken) = JwtHelper.GenerateToken(userId, _jwtConfig);
         return Ok(new { accessToken, refreshToken });
@@ -53,7 +54,7 @@ public class UserController : ControllerBase
         ArgumentNullException.ThrowIfNull(request);
         (bool isValidate, string userId) = ValidateRefreshToken(request.RefreshToken);
         if (!isValidate) { return Unauthorized("Invalid credentials"); }
-        var _jwtConfig = _configuration.GetSection("JWT").Get<JwtOptions>();
+        var _jwtConfig = _configuration.GetSection("JWT").Get<JwtOption>();
         ArgumentNullException.ThrowIfNull(_jwtConfig, nameof(_jwtConfig));
         (string accessToken, string refreshToken) = JwtHelper.GenerateToken(userId, _jwtConfig);
         return Ok(new { accessToken, refreshToken });
