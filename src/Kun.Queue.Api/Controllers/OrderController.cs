@@ -1,5 +1,4 @@
 ﻿using Kun.Queue.Models;
-using MassTransit;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,17 +12,6 @@ namespace Kun.Queue.Controllers;
 [Authorize]
 public class OrderController : ControllerBase
 {
-    private readonly IPublishEndpoint _publishEndpoint;
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="publishEndpoint"></param>
-    public OrderController(IPublishEndpoint publishEndpoint)
-    {
-        _publishEndpoint = publishEndpoint;
-    }
-
     /// <summary>
     /// 创建
     /// </summary>
@@ -36,7 +24,6 @@ public class OrderController : ControllerBase
     public async Task<IActionResult> CreateAsync([FromBody] CreateOrderModel order)
     {
         ArgumentNullException.ThrowIfNull(order);
-        await Task.CompletedTask;
         return Ok("SUCCESS-CREATE");
     }
 
